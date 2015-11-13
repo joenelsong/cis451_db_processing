@@ -54,7 +54,7 @@ if (!$stmt->execute()) {
 The query:
 <p>
 <?php
-print $query;
+//print $query;
 ?>
 
 <hr>
@@ -63,20 +63,20 @@ Result of query:
 <p>
 
 <?php
-$result = mysqli_query($conn, $query)
-or die(mysqli_error($conn));
+//$result = mysqli_query($conn, $query)
+//or die(mysqli_error($conn));
 
 print "<pre>";
-while($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-  {
-    print "\n";
-    print "$row[firstName]  $row[lastName] $row[city]";
-  }
+//while($row = mysqli_fetch_array($result, MYSQLI_BOTH))
+  //{
+    //print "\n";
+    //print "$row[firstName]  $row[lastName] $row[city]";
+  //}
 print "</pre>";
 
-mysqli_free_result($result);
+//mysqli_free_result($result);
 
-mysqli_close($conn);
+//mysqli_close($conn);
 
 ?>
 

@@ -3,11 +3,7 @@
 include('connectionData.txt');
 
 $conn = mysqli_connect($server, $user, $pass, $dbname, $port)
-
-    $mysqli = new mysqli("$server", "$user", "$passw", "$dbname");
-if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
+or die('Error connecting to MySQL server.');
 
 ?>
 
@@ -30,14 +26,8 @@ $state = mysqli_real_escape_string($conn, $state);
 // this is a small attempt to avoid SQL injection
 // better to use prepared statements
 
-//$query = "SELECT DISTINCT firstName, lastName, city FROM customer WHERE state = ";
-//$query = $query."'".$state."' ORDER BY 2;";
-
-
-/* Prepared statement, stage 1: prepare */
-if (!($stmt = $mysqli->prepare("SELECT * FROM state"))) {
-        echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-}
+$query = "SELECT DISTINCT firstName, lastName, city FROM customer WHERE state = ";
+$query = $query."'".$state."' ORDER BY 2;";
 
 ?>
 
@@ -80,4 +70,3 @@ of the PHP program that created this page.
  
 </body>
 </html>
-	  

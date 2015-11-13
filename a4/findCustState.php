@@ -1,7 +1,7 @@
 <?php
 include('connectionData.txt');
 
-$mysqli = new mysqli($server, $user, $pass, $dbname, $port);
+$mysqli = new mysqli($server, $user, $pass, $dbname);
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }

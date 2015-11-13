@@ -2,16 +2,24 @@
 include('connectionData.txt');
 
 $mysqli = new mysqli($server, $user, $pass, $dbname);
-/* Prepared statement, stage 1: prepare */
-if (!($stmt = $mysqli->prepare("INSERT INTO test(id) VALUES (?)"))) {
-    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 /* create a prepared statement */
 $sql = "SELECT s.description as 'Item Description', sum(i.total_price) as 'Revenues' FROM stock s JOIN manufact m using(manu_code) JOIN items i using(stock_num) WHERE m.manu_name = ? group by s.description";
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_para("s", $m); // bind variables
+if (!($stmt = $mysqli->prepare($sql))) {
+	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+}
+
+/* Prepared statement, stage 2: bind and execute */
 $m = $_POST['state'];
-$stmt->execute();
+if (!$stmt->bind_para("s", $m)) { // bind variables
+    echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+}
+ 
+if (!$stmt->execute()) {
+	echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+}
 
 //$conn = mysqli_connect($server, $user, $pass, $dbname, $port)
 //or die('Error connecting to MySQL server.');

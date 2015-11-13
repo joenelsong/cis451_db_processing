@@ -1,9 +1,20 @@
 <?php
-
 include('connectionData.txt');
 
-$conn = mysqli_connect($server, $user, $pass, $dbname, $port)
-or die('Error connecting to MySQL server.');
+$mysqli = new mysqli($server, $user, $pass, $dbname);
+/* Prepared statement, stage 1: prepare */
+if (!($stmt = $mysqli->prepare("INSERT INTO test(id) VALUES (?)"))) {
+    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+}
+/* create a prepared statement */
+$sql = "SELECT s.description as 'Item Description', sum(i.total_price) as 'Revenues' FROM stock s JOIN manufact m using(manu_code) JOIN items i using(stock_num) WHERE m.manu_name = ? group by s.description";
+$stmt = $mysqli->prepare($sql);
+$stmt->bind_para("s", $m); // bind variables
+$m = $_POST['state'];
+$stmt->execute();
+
+//$conn = mysqli_connect($server, $user, $pass, $dbname, $port)
+//or die('Error connecting to MySQL server.');
 
 ?>
 
@@ -20,14 +31,14 @@ or die('Error connecting to MySQL server.');
   
 <?php
   
-$state = $_POST['state'];
+//$state = $_POST['state'];
 
-$state = mysqli_real_escape_string($conn, $state);
+//$state = mysqli_real_escape_string($conn, $state);
 // this is a small attempt to avoid SQL injection
 // better to use prepared statements
 
-$query = "SELECT DISTINCT firstName, lastName, city FROM customer WHERE state = ";
-$query = $query."'".$state."' ORDER BY 2;";
+//$query = "SELECT DISTINCT firstName, lastName, city FROM customer WHERE state = ";
+//$query = $query."'".$state."' ORDER BY 2;";
 
 ?>
 

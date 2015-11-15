@@ -71,7 +71,8 @@ if (!$stmt->bind_result($out_description, $out_revenues)) {
 }
 
 while ($stmt->fetch()) {
-    printf("Description = %s, Revenues = %s\n", $out_description, $out_revenues);
+    printf("%20s %12s", $out_description, $out_revenues);
+    print "\n";
 }
 //$result = mysqli_query($conn, $query)
 //or die(mysqli_error($conn));

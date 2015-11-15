@@ -12,8 +12,8 @@ if (!($stmt = $mysqli->prepare($sql))) {
 }
 
 /* Prepared statement, stage 2: bind and execute */
-//$m = $_POST['state'];
-$m = 'Anza';
+$m = $_POST['state'];
+//$m = 'Anza';
 if (!$stmt->bind_param("s", $m)) { // bind variables
     echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 }
@@ -71,7 +71,8 @@ if (!$stmt->bind_result($out_description, $out_revenues)) {
 }
 
 while ($stmt->fetch()) {
-    printf("%20s %12s\r\n", $out_description, $out_revenues);
+    printf("%20s %12s", $out_description, $out_revenues);
+    echo "\r\n"; 
     //print PHP_EOL;
 }
 //$result = mysqli_query($conn, $query)

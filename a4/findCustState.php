@@ -13,7 +13,7 @@ if (!($stmt = $mysqli->prepare($sql))) {
 
 /* Prepared statement, stage 2: bind and execute */
 //$m = $_POST['state'];
-$m = 'state';
+$m = 'Anza';
 if (!$stmt->bind_param("s", $m)) { // bind variables
     echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 }
@@ -64,6 +64,15 @@ Result of query:
 <p>
 
 <?php
+$out_description    = NULL;
+$out_revenues = NULL;
+if (!$stmt->bind_result($out_description, $out_revenues)) {
+    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+}
+
+while ($stmt->fetch()) {
+    printf("Description = %s, Revenues = %s\n", $out_description, $out_revenues);
+}
 //$result = mysqli_query($conn, $query)
 //or die(mysqli_error($conn));
 

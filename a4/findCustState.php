@@ -1,7 +1,7 @@
 <?php
 include('connectionData.txt');
 
-$mysqli = new mysqli($server, $user, $pass, $dbname, $port, MySQL);
+$mysqli = new mysqli($server, $user, $pass, $dbname, $port, 'MySQL');
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
@@ -12,8 +12,9 @@ if (!($stmt = $mysqli->prepare($sql))) {
 }
 
 /* Prepared statement, stage 2: bind and execute */
-$m = $_POST['state'];
-if (!$stmt->bind_para("s", $m)) { // bind variables
+//$m = $_POST['state'];
+$m = 'state';
+if (!$stmt->bind_param("s", $m)) { // bind variables
     echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 }
  

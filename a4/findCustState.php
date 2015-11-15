@@ -22,9 +22,6 @@ if (!$stmt->execute()) {
 	echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
 }
 
-//$conn = mysqli_connect($server, $user, $pass, $dbname, $port)
-//or die('Error connecting to MySQL server.');
-
 ?>
 
 <html>
@@ -40,14 +37,6 @@ if (!$stmt->execute()) {
   
 <?php
   
-//$state = $_POST['state'];
-
-//$state = mysqli_real_escape_string($conn, $state);
-// this is a small attempt to avoid SQL injection
-// better to use prepared statements
-
-//$query = "SELECT DISTINCT firstName, lastName, city FROM customer WHERE state = ";
-//$query = $query."'".$state."' ORDER BY 2;";
 
 ?>
 
@@ -55,7 +44,6 @@ if (!$stmt->execute()) {
 The query:
 <p>
 <?php
-//print $query;
 ?>
 
 <hr>
@@ -72,23 +60,9 @@ if (!$stmt->bind_result($out_description, $out_revenues)) {
 
 while ($stmt->fetch()) {
     printf("%20s %12s", $out_description, $out_revenues);
-    echo "\r\n"; 
+    echo "\r\n"; // Newlines won't work! :(
     //print PHP_EOL;
 }
-//$result = mysqli_query($conn, $query)
-//or die(mysqli_error($conn));
-
-print "<pre>";
-//while($row = mysqli_fetch_array($result, MYSQLI_BOTH))
-  //{
-    //print "\n";
-    //print "$row[firstName]  $row[lastName] $row[city]";
-  //}
-print "</pre>";
-
-//mysqli_free_result($result);
-
-//mysqli_close($conn);
 
 ?>
 

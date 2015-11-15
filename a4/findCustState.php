@@ -73,7 +73,7 @@ if (!$stmt->bind_result($out_description, $out_revenues)) {
 while ($stmt->fetch()) {
     printf("%20s %12s", $out_description, $out_revenues);
     //print PHP_EOL;
-    printf("\r\n") // new line and carriage return
+    printf("\r\n"); // new line and carriage return
 }
 //$result = mysqli_query($conn, $query)
 //or die(mysqli_error($conn));
